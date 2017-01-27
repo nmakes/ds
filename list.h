@@ -236,11 +236,6 @@ template <typename T> class List
 			return head;
 		}
 
-		void make(unsigned long number)
-		{
-			
-		}
-
 		/* 	
 			Utility Functions
 			- These need to be defined by the user.
@@ -248,6 +243,10 @@ template <typename T> class List
 			- Define a function called compare in class T.
 		*/
 
+		void make(unsigned long number_of_elem); // create number_of_elem amount of empty elements
+/* TODO: define make function */
+
+		int compare(T a, T b);
 		void sort();
 		T getMax();
 		T getMin();
