@@ -8,6 +8,8 @@
 #define FLAG_CSTDLIB
 #endif
 
+#define LIST_VERSION_NUMBER 0.8
+
 using namespace std;
 
 template <typename T> class Node
