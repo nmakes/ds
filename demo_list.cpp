@@ -19,7 +19,7 @@ int main()
 	cout << "List: ";
 	for(int i=0; i<=list.end(); i++)
 	{
-		cout << list.getData(i) << " ";
+		cout << list[i] << " "; // operator method to retrieve data
 	}
 	cout << endl;
 	cout << "New list size: " << list.getSize() << endl;
@@ -29,7 +29,7 @@ int main()
 	cout << "List: ";
 	for(int i=0; i<=list.end(); i++)
 	{
-		cout << list.getData(i) << " ";
+		cout << list.getData(i) << " "; // getData() function to retrieve data
 	}
 	cout << endl;
 	cout << "New list size: " << list.getSize() << endl;
