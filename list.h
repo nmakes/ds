@@ -1,8 +1,12 @@
-#ifndef _GLIBCXX_IOSTREAM
+#ifndef FLAG_IOSTREAM
 #include <iostream>
+#define FLAG_IOSTREAM
 #endif
 
-#include <stdlib.h>
+#ifndef FLAG_CSTDLIB
+#include <cstdlib>
+#define FLAG_CSTDLIB
+#endif
 
 using namespace std;
 
@@ -23,14 +27,13 @@ template <typename T> class Node
 
 template <typename T> class List
 {
-
 	private:
 		TNode * head;
 		unsigned long size;
 
 	public:
 
-		List <T> ()
+		List<T>()
 		{
 			head = NULL;
 			size = 0;
@@ -162,8 +165,10 @@ template <typename T> class List
 			}
 			size++;
 
-			// alternative code
-			/*	
+			// Here is an alternate code. It would take longer time for execution
+			// because of the function call add(node,size). However, the code
+			// size is small.
+			/*
 				add(node, size);
 			*/
 		}
@@ -236,15 +241,34 @@ template <typename T> class List
 			return head;
 		}
 
-		/* 	
+		unsigned long beg()
+		{return 0;}
+
+		unsigned long mid()
+		{return size/2;}
+
+		unsigned long end()
+		{return size-1;}
+
+	public:
+
+		void build(unsigned long number_of_elem) // create number_of_elem amount of empty elements
+		{
+			for(int i=1; i<=number_of_elem; i++)
+			{
+				add(*(new T()));
+			}
+		}
+
+		/*
 			Utility Functions
 			- These need to be defined by the user.
 			- These use a function called 'compare' for comparing two nodes.
 			- Define a function called compare in class T.
+
 		*/
 
-		void make(unsigned long number_of_elem); // create number_of_elem amount of empty elements
-/* TODO: define make function */
+		// to be done
 
 		int compare(T a, T b);
 		void sort();
