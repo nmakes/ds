@@ -9,7 +9,7 @@ int main()
 {
 	List <int> list;
 
-	cout << "DEMO: list.h V" << LIST_VERSION_NUMBER;
+	cout << "DEMO: list.h v" << LIST_VERSION_NUMBER << endl;
 
 	cout << "\n-- initial --\n";
 	cout << "List size: " << list.getSize() << endl;
