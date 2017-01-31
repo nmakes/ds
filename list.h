@@ -254,7 +254,7 @@ template <typename T> class List
 		{
 			for(int i=1; i<=number_of_elem; i++)
 			{
-				add(*(new T()));
+				add(*(new T())); // requires a default constructor of type T.
 			}
 		}
 
