@@ -250,8 +250,6 @@ template <typename T> class List
 		unsigned long end()
 		{return size-1;}
 
-	public:
-
 		void build(unsigned long number_of_elem) // create number_of_elem amount of empty elements
 		{
 			for(int i=1; i<=number_of_elem; i++)
