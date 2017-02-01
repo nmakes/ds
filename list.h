@@ -1,3 +1,8 @@
+/*
+	Copyright (c) 2017 Naveen Venkat
+	Read Licence for more info.
+*/
+
 #ifndef FLAG_IOSTREAM
 #include <iostream>
 #define FLAG_IOSTREAM
