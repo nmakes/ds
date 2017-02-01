@@ -51,8 +51,8 @@ template <typename T> class List
 		TNode * getLast();
 		T getData(unsigned long pos);
 		T operator[] (unsigned long pos);
-		void add(T node, unsigned long pos);
-		void add(T node);
+		void add(T data, unsigned long pos);
+		void add(T data);
 		void remove(unsigned long pos);
 		void swap(unsigned long pos1, unsigned long pos2);
 		void build(unsigned long number_of_elem);
@@ -181,7 +181,7 @@ T List<T>::operator[] (unsigned long pos)
 }
 
 template <typename T>
-void List<T>::add(T node, unsigned long pos)
+void List<T>::add(T data, unsigned long pos)
 {
 	if(pos < 0 || pos > size)
 	{
@@ -192,14 +192,14 @@ void List<T>::add(T node, unsigned long pos)
 	{
 		if (pos==0)
 		{
-			TNode * temp = new TNode(node);
+			TNode * temp = new TNode(data);
 			temp -> next = head;
 			head = temp;
 		}
 		else
 		{
 			TNode * temp = getNode(pos-1);
-			TNode * addNode = new TNode(node);
+			TNode * addNode = new TNode(data);
 			addNode -> next = temp -> next;
 			temp -> next = addNode;
 		}
@@ -208,9 +208,9 @@ void List<T>::add(T node, unsigned long pos)
 }
 
 template <typename T>
-void List<T>::add(T node)
+void List<T>::add(T data)
 {
-	TNode * temp = new TNode(node);
+	TNode * temp = new TNode(data);
 	TNode * last = getLast();
 	if(last == NULL)
 	{
