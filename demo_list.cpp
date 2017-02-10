@@ -46,5 +46,10 @@ int main()
 	cout << endl;
 	cout << "New list size: " << list.getSize() << endl;
 
+	cout << "\n-- searching operations --\n";
+	cout << "Search(13): " << list.search(13) << endl;
+	cout << "Search(0): " << list.search(0) << endl;
+	cout << "Search(516): " << list.search(516) << endl;
+
 	return 0;
 }
