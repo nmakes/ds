@@ -14,7 +14,7 @@
 #define FLAG_CSTDLIB
 #endif
 
-#define LIST_VERSION_NUMBER 0.8
+#define LIST_VERSION_NUMBER 0.9 // added isEmpty, isCorrupt, search
 
 using namespace std;
 
@@ -38,6 +38,7 @@ template <typename T> class List
 	private:
 
 		TNode * head;
+		TNode * iterator;
 		unsigned long size;
 
 	public:
@@ -56,7 +57,14 @@ template <typename T> class List
 		void add(T data);
 		void remove(unsigned long pos);
 		void swap(unsigned long pos1, unsigned long pos2);
-		void build(unsigned long number_of_elem);
+		void build(unsigned long number_of_elem); // build requires a default constructor of type T.
+		long search(T data);
+
+		int isEmpty()
+		{return (size==0 && head==NULL);}
+
+		int isCorrupt()
+		{return (size!=0 && head==NULL);}
 
 		unsigned long getSize()
 		{return size;}
@@ -297,5 +305,30 @@ void List<T>::build(unsigned long number_of_elem) // create number_of_elem amoun
 	for(int i=1; i<=number_of_elem; i++)
 	{
 		add(*(new T())); // requires a default constructor of type T.
+	}
+}
+
+template <typename T>
+long List<T>::search(T nData) // searches for the first occurance of the given element
+{
+	if(head == NULL)
+	{
+		cout << endl << "Exception.List.remove(): head is NULL" << endl;
+		system("exit");
+		return -1;
+	}
+	else
+	{
+		TNode * mov = head;
+		int i=0;
+		while(mov != NULL)
+		{
+			if(mov->data == nData)
+			{
+				return i;
+			}
+			i++;
+			mov = mov->next;
+		}
 	}
 }
