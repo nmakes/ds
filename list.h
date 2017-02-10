@@ -1,6 +1,7 @@
 /*
 	Copyright (c) 2017 Naveen Venkat
-	Read Licence for more info.
+	github.com/nmakes/ds
+	Read Licence for more info
 */
 
 #ifndef FLAG_IOSTREAM
@@ -250,6 +251,7 @@ void List<T>::remove(unsigned long pos)
 			TNode * temp= head;
 			head = head->next;
 			delete temp;
+			size--;
 		}
 		else
 		{
@@ -261,9 +263,9 @@ void List<T>::remove(unsigned long pos)
 			TNode * temp = mov->next;
 			mov -> next = temp -> next;
 			delete temp;
+			size--;
 		}
 	}
-	size--;
 }
 
 template <typename T>
