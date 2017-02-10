@@ -6,33 +6,33 @@
 
 #include "list.h"
 
-
 class gnode
 {
     private:
     List <gnode *> edge;
 
     public:
+
     void addEdge(gnode*);
     void removeEdge(gnode*);
     void connect(gnode*);
     void disconnect(gnode*);
+
+    int points(gnode*);
+    int isConnected(gnode*);
 };
 
 class graph
 {
     private:
     List <gnode *> nodes;
+
+    public:
 };
 
 void gnode::addEdge(gnode * gn)
 {
     this->edge.add(gn);
-}
-
-void gnode::removeEdge(gnode * gn)
-{
-    this->edge.remove(gn);
 }
 
 void gnode::connect(gnode * gn)
