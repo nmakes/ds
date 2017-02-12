@@ -36,7 +36,8 @@ int main()
 	cout << endl;
 	cout << "New list size: " << list.getSize() << endl;
 
-	list.remove(31);
+	list.remove(31); // will throw an index out of bounds exception
+
 	cout << "\n-- after using remove(31) --\n";
 	cout << "List: ";
 	for(int i=0; i<=list.end(); i++)
@@ -50,6 +51,10 @@ int main()
 	cout << "Search(13): " << list.search(13) << endl;
 	cout << "Search(0): " << list.search(0) << endl;
 	cout << "Search(516): " << list.search(516) << endl;
+
+	int x = list.getData(67);
+
+	cout << "getData: " << x;
 
 	return 0;
 }
