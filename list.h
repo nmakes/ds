@@ -14,7 +14,8 @@
 #define FLAG_CSTDLIB
 #endif
 
-#define LIST_VERSION_NUMBER 0.9 // added isEmpty, isCorrupt, search
+#define LIST_VERSION_NUMBER 1.0 // added isOrphan, and improved documentation
+// removed system("exit") and replaced with return statements
 
 using namespace std;
 
@@ -56,15 +57,18 @@ template <typename T> class List
 		void add(T data, unsigned long pos);
 		void add(T data);
 		void remove(unsigned long pos);
-		void swap(unsigned long pos1, unsigned long pos2);
+		int swap(unsigned long pos1, unsigned long pos2);
 		void build(unsigned long number_of_elem); // build requires a default constructor of type T.
-		long search(T data);
+		long search(T data); //
 
-		int isEmpty()
+		int isEmpty() // returns true if the list is empty
 		{return (size==0 && head==NULL);}
 
-		int isCorrupt()
+		int isCorrupt() // returns true if the size is not zero, but the head points to NULL
 		{return (size!=0 && head==NULL);}
+
+		int isOrphan() // returns true if the size is zero and head is points to NULL
+		{return (size==0 && head==NULL);}
 
 		unsigned long getSize()
 		{return size;}
@@ -100,22 +104,25 @@ template <typename T> class List
 // FUNCTION DEFINITIONS
 
 template <typename T>
-TNode * List<T>::getNode(unsigned long pos)
+TNode * List<T>::getNode(unsigned long index)
 {
+	// returns the node at position, if exists
+	// returns NULL if head is NULL
+	// throws exception and returns NULL if index is out of bounds
+
 	if(head == NULL)
 	{
-		cout << endl << "Exception.List.getNode(): head is NULL" << endl;
-		system("exit");
+		return NULL;
 	}
-	else if(pos < 0 || pos > size-1)
+	else if(index < 0 || index > size-1)
 	{
-		cout << endl << "Exception.List.getNode(): index out of bounds" << endl;
-		system("exit");
+		cout << endl << "==| Exception.List.getNode(): index out of bounds" << endl;
+		return NULL;
 	}
 	else
 	{
 		TNode* mov = head;
-		for(int i=0;i<pos; i++)
+		for(int i=0;i<index; i++)
 		{
 			mov = mov->next;
 		}
@@ -126,9 +133,11 @@ TNode * List<T>::getNode(unsigned long pos)
 template <typename T>
 TNode * List<T>::getLast()
 {
+	// returns the last node
+
 	if(head == NULL)
 	{
-		return head;
+		return NULL;
 	}
 	else
 	{
@@ -144,14 +153,17 @@ TNode * List<T>::getLast()
 template <typename T>
 T List<T>::getData(unsigned long pos)
 {
+	// returns the element at position pos
+	// throws fatal exception and exits if error occurs
+
 	if(head == NULL)
 	{
-		cout << endl << "Exception.List.get(): head is NULL" << endl;
+		cout << endl << "==| FatalException.List.get(): head is NULL" << endl;
 		system("exit");
 	}
 	else if(pos < 0 || pos > size-1)
 	{
-		cout << endl << "Exception.List.get(): index out of bounds" << endl;
+		cout << endl << "==| FatalException.List.get(): index out of bounds" << endl;
 		system("exit");
 	}
 	else
@@ -168,14 +180,18 @@ T List<T>::getData(unsigned long pos)
 template <typename T>
 T List<T>::operator[] (unsigned long pos)
 {
+	// same as getData() function
+	// returns the element at position pos
+	// throws fatal exception and exits if error occurs
+
 	if(head == NULL)
 	{
-		cout << endl << "Exception.List.get(): head is NULL" << endl;
+		cout << endl << "==| FatalException.List.get(): head is NULL" << endl;
 		system("exit");
 	}
 	else if(pos < 0 || pos > size-1)
 	{
-		cout << endl << "Exception.List.get(): index out of bounds" << endl;
+		cout << endl << "==| FatalException.List.get(): index out of bounds" << endl;
 		system("exit");
 	}
 	else
@@ -192,9 +208,12 @@ T List<T>::operator[] (unsigned long pos)
 template <typename T>
 void List<T>::add(T data, unsigned long pos)
 {
+	// adds the given data at position pos
+	// throws a fatal exception and exits if index is out of bounds
+
 	if(pos < 0 || pos > size)
 	{
-		cout << endl << "Exception.List.add(): index out of bounds" << endl;
+		cout << endl << "==| FatalException.List.add(): index out of bounds" << endl;
 		system("exit");
 	}
 	else
@@ -219,6 +238,9 @@ void List<T>::add(T data, unsigned long pos)
 template <typename T>
 void List<T>::add(T data)
 {
+	// adds the given data at the end
+	// throws a fatal exception and exits if index is out of bounds
+
 	TNode * temp = new TNode(data);
 	TNode * last = getLast();
 	if(last == NULL)
@@ -242,9 +264,13 @@ void List<T>::add(T data)
 template <typename T>
 void List<T>::remove(unsigned long pos)
 {
+	// removes the data at position pos
+	// throws a fatal exception and exits if head is NULL
+	// throws a fatal exception and exits if index is out of bounds
+
 	if(head == NULL)
 	{
-		cout << endl << "Exception.List.remove(): head is NULL" << endl;
+		cout << endl << "==| FatalException.List.remove(): head is NULL" << endl;
 		system("exit");
 	}
 	else if(pos < 0 || pos > size-1)
@@ -277,19 +303,28 @@ void List<T>::remove(unsigned long pos)
 }
 
 template <typename T>
-void List<T>::swap(unsigned long pos1, unsigned long pos2)
+int List<T>::swap(unsigned long pos1, unsigned long pos2)
 {
+	// swaps elements at pos1 and pos2
+	// returns -1 if head is NULL
+	// returns -2 if either of the positions is out of bounds
+
+	if(head==NULL)
+	{
+		cout << endl << "Exception.List.swap(): head is NULL" << endl;
+		return -1;
+	}
 	if( (pos1<0 || pos1>size-1) )
 	{
 		cout << endl << "Exception.List.swap(): first node index out of bounds" << endl;
 		system("exit");
-		return;
+		return -2;
 	}
 	else if( (pos2<0 || pos2>size-1) )
 	{
 		cout << endl << "Exception.List.swap(): second node index out of bounds" << endl;
 		system("exit");
-		return;
+		return -2;
 	}
 	else
 	{
@@ -300,8 +335,11 @@ void List<T>::swap(unsigned long pos1, unsigned long pos2)
 }
 
 template <typename T>
-void List<T>::build(unsigned long number_of_elem) // create number_of_elem amount of empty elements
+void List<T>::build(unsigned long number_of_elem)
 {
+	// creates number_of_elem number of empty elements
+	// does not throw any exception TODO: edit this
+
 	for(int i=1; i<=number_of_elem; i++)
 	{
 		add(*(new T())); // requires a default constructor of type T.
@@ -309,8 +347,13 @@ void List<T>::build(unsigned long number_of_elem) // create number_of_elem amoun
 }
 
 template <typename T>
-long List<T>::search(T nData) // searches for the first occurance of the given element
+long List<T>::search(T nData)
 {
+	// searches for the first occurance of the given element
+	// returns the index of the first occurance of the data
+	// returns -1 if head is NULL
+	// returns -2 if not found
+
 	if(head == NULL)
 	{
 		cout << endl << "Exception.List.remove(): head is NULL" << endl;
@@ -331,4 +374,5 @@ long List<T>::search(T nData) // searches for the first occurance of the given e
 			mov = mov->next;
 		}
 	}
+	return -2; // not found
 }
