@@ -14,8 +14,10 @@
 #define FLAG_CSTDLIB
 #endif
 
-#define LIST_VERSION_NUMBER 1.0 // added isOrphan, and improved documentation
-// removed system("exit") and replaced with return statements
+#define LIST_VERSION_NUMBER 1.1
+
+// changelog
+// using a *tail pointer to improve traversal
 
 using namespace std;
 
@@ -39,6 +41,7 @@ template <typename T> class List
 	private:
 
 		TNode * head;
+		TNode * tail;
 		TNode * iterator;
 		unsigned long size;
 
@@ -47,6 +50,7 @@ template <typename T> class List
 		List<T>()
 		{
 			head = NULL;
+			tail = NULL;
 			size = 0;
 		}
 
@@ -62,19 +66,26 @@ template <typename T> class List
 		long search(T data); //
 
 		int isEmpty() // returns true if the list is empty
-		{return (size==0 && head==NULL);}
+		{return (size==0 && head==NULL && tail==NULL);}
 
-		int isCorrupt() // returns true if the size is not zero, but the head points to NULL
-		{return (size!=0 && head==NULL);}
+		int isCorrupt() // returns true if the size is not zero, but the head or tail points differently
+		{return ( (size!=0 && (head==NULL||tail==NULL)) || (head!=NULL && tail==NULL) || (head==NULL && tail!=NULL) ) ;}
 
-		int isOrphan() // returns true if the size is zero and head is points to NULL
-		{return (size==0 && head==NULL);}
+		int isOrphan() // returns true if the size is zero and head is points to NULL (an empty pointer)
+		{return (size==0 && (head==NULL||tail==NULL));}
 
 		unsigned long getSize()
 		{return size;}
 
 		TNode * getHead()
 		{return head;}
+
+		/* redundant code - use getLast() instead
+
+		TNode * getTail()
+		{return tail;}
+
+		*/
 
 		unsigned long beg()
 		{return 0;}
@@ -119,6 +130,10 @@ TNode * List<T>::getNode(unsigned long index)
 		cout << endl << "==| Exception.List.getNode(): index out of bounds" << endl;
 		return NULL;
 	}
+	else if(index == size-1)
+	{
+		return tail;
+	}
 	else
 	{
 		TNode* mov = head;
@@ -134,20 +149,7 @@ template <typename T>
 TNode * List<T>::getLast()
 {
 	// returns the last node
-
-	if(head == NULL)
-	{
-		return NULL;
-	}
-	else
-	{
-		TNode *mov = head;
-		while(mov->next!=NULL)
-		{
-			mov = mov->next;
-		}
-		return mov;
-	}
+	return tail;
 }
 
 template <typename T>
@@ -165,6 +167,10 @@ T List<T>::getData(unsigned long pos)
 	{
 		cout << endl << "==| FatalException.List.get(): index out of bounds" << endl;
 		system("exit");
+	}
+	else if(pos == size-1)
+	{
+		return tail->data;
 	}
 	else
 	{
@@ -194,6 +200,10 @@ T List<T>::operator[] (unsigned long pos)
 		cout << endl << "==| FatalException.List.get(): index out of bounds" << endl;
 		system("exit");
 	}
+	else if(pos == size-1)
+	{
+		return tail->data;
+	}
 	else
 	{
 		TNode* mov = head;
@@ -218,11 +228,24 @@ void List<T>::add(T data, unsigned long pos)
 	}
 	else
 	{
-		if (pos==0)
+		if(head==tail) // single element case
+		{
+			TNode * temp = new TNode(data);
+			temp -> next = NULL;
+			head = tail = temp;	
+		}
+		else if (pos==0)
 		{
 			TNode * temp = new TNode(data);
 			temp -> next = head;
 			head = temp;
+		}
+		else if(pos==size)
+		{
+			TNode * addNode = new TNode(data);
+			addNode -> next = NULL;
+			tail -> next = addNode;
+			tail = addNode;
 		}
 		else
 		{
@@ -242,14 +265,14 @@ void List<T>::add(T data)
 	// throws a fatal exception and exits if index is out of bounds
 
 	TNode * temp = new TNode(data);
-	TNode * last = getLast();
-	if(last == NULL)
+	if(tail == NULL)
 	{
-		head = temp;
+		head = tail = temp;
 	}
 	else
 	{
-		last -> next = temp;
+		tail -> next = temp;
+		tail = temp;
 	}
 	size++;
 
@@ -280,7 +303,12 @@ void List<T>::remove(unsigned long pos)
 	}
 	else
 	{
-		if(pos == 0)
+		if(head==tail)
+		{
+			delete head;
+			head = tail = NULL;
+		}
+		else if(pos == 0)
 		{
 			TNode * temp= head;
 			head = head->next;
@@ -289,15 +317,16 @@ void List<T>::remove(unsigned long pos)
 		}
 		else
 		{
-			TNode * mov = head;
-			for(int i=1;i<pos; i++)
-			{
-				mov = mov->next;
-			}
-			TNode * temp = mov->next;
-			mov -> next = temp -> next;
+			TNode * prev = getNode(pos-1);
+			TNode * temp = prev->next;
+			prev -> next = temp->next;
 			delete temp;
 			size--;
+
+			if(pos==size-1)
+			{
+				tail = prev;
+			}
 		}
 	}
 }
