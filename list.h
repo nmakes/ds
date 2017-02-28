@@ -80,12 +80,8 @@ template <typename T> class List
 		TNode * getHead()
 		{return head;}
 
-		/* redundant code - use getLast() instead
-
 		TNode * getTail()
 		{return tail;}
-
-		*/
 
 		unsigned long beg()
 		{return 0;}
