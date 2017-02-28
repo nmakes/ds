@@ -9,4 +9,5 @@ A multi-purpose Linked list implementation.
     - Forms a basis for stacks, queues. A wrapper is all that is required.  
     - Optimized code
 
-More to be added in the future.
+###Standard functions:
+	- TNode * 
