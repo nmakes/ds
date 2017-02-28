@@ -27,7 +27,7 @@ int main()
 	cout << "New list size: " << list.getSize() << endl;
 
 	list.build(3);
-	cout << "\n-- after using build --\n";
+	cout << "\n-- after using build(3) --\n";
 	cout << "List: ";
 	for(int i=0; i<=list.end(); i++)
 	{
