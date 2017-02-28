@@ -56,6 +56,11 @@ Now the list size can be inspected using list.getSize(). The following code will
 	cout << list.beg() << " " << list.mid() << " " << list.end();
 	// this prints the beginning, middle and ending indices of the list
 
+Thus, the output will be:
+	
+	3
+	0 1 2
+
 ###Building the list:
 
 The build() function builds empty slots at the end of the list. This function would require your data type to have a default constructor:
@@ -97,9 +102,9 @@ At any point, to get an element from the list, you can use the getData() functio
 	list.getData(2); // returns 15
 	list[1]; // returns 516
 
-###Getting pointers pointing to elements (nodes):
+###Getting pointers to nodes:
 
-There is also a feature to get the pointer to the node at a position:
+The actual nodes of the list wrap two items, the 'data' element and the 'next' pointer. This library supports getting the pointer to the node, so that changes can be made directly to these items.
 
 	list.getNode(2); 
 	// returns a pointer to the node with the integer 15
@@ -130,4 +135,4 @@ Searching can be done in the list using the search() function. However, this req
 
 	list.search(79); // returns -2, because 79 is not found
 	list.search(53); // returns 4, the position of 53 in the list
-	list.search(0); // returns 0, the position of the first occurance of 0
+	list.search(0); // returns 0, the position of the first occurance of 0	

@@ -54,7 +54,9 @@ int main()
 
 	int x = list.getData(67);
 
-	cout << "getData: " << x;
+	cout << "getData: " << x << endl;
+
+	cout << "!= operation: " << (list.getData(1) != list.getData(2)) << endl;
 
 	return 0;
 }
