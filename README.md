@@ -11,11 +11,19 @@ A multi-purpose Linked list implementation.
 
 ###Crash Course:
 
-The list indexing starts from 0. Initially, the list will have 0 elements and the head and the tail will point to null.
+The list indexing starts from 0. Initially, the list will have 0 elements and the head and the tail will point to null. 
 
-Let's dive into the code rightaway. First, let's initialize an empty list called _list_ :
+Throughout the documentation, 'element' means a data element - the real data which is wrapped inside a node of the linked list.
+
+Let's dive into the code rightaway. 
+
+###Initialising the list:
+
+First, let's initialize an empty list called _list_ :
 
 	List <int> list;
+
+All this did was created an empty linked list, whose head and tail pointers point to NULL. We will see the uses of the head and tail later.
 
 ###Adding elements to the list:
 
@@ -27,6 +35,7 @@ Now, let's add two numbers to the end of the list:
 This builds the list as:
 
 	15 -> 13
+	^head ^tail | size == 2
 
 We can also add numbers at a specific position:
 
@@ -35,6 +44,7 @@ We can also add numbers at a specific position:
 After this operation, the list will be:
 
 	15 -> 516 -> 13
+	^head        ^tail | size == 3
 
 ###Inspecting the list size:
 
@@ -56,20 +66,29 @@ The build() function builds empty slots at the end of the list. This function wo
 Till now, the linked list is:
 
 	15 -> 516 -> 13 -> 0 -> 0 -> 0
+	^head                        ^tail | size == 6
 
 ###Removing elements:
 
 We can remove elements using remove(position):
 
 	list.remove(2); 
-	// The list would become 15 -> 516 -> 0 -> 0 -> 0
+
+The list would become:
+	
+	15 -> 516 -> 0 -> 0 -> 0
+	^head                  ^tail | size == 5
 
 ###Swapping elements:
 
 Elements can be swapped using the swap(pos1,pos2) function:
 
-	list.swap(0,2); 
-	// The list would become 0 -> 516 -> 15 -> 0 -> 0
+	list.swap(0,2);
+
+The list would become:
+	
+	0 -> 516 -> 15 -> 0 -> 0
+	^head                  ^tail | size == 5
 
 ###Retrieving elements:
 
@@ -78,7 +97,7 @@ At any point, to get an element from the list, you can use the getData() functio
 	list.getData(2); // returns 15
 	list[1]; // returns 516
 
-###Getting pointers to the node:
+###Getting pointers pointing to elements (nodes):
 
 There is also a feature to get the pointer to the node at a position:
 
@@ -92,20 +111,23 @@ A node can be used to alter data like so:
 
 The list after these operations would be:
 	
-	0 -> 516 -> 330 -> 0 -> 70 -> 0
+	0 -> 516 -> 330 -> 0 -> 70
+	^head                   ^tail | size == 5
 
 getTail() gives the last node, getHead() gives the first node:
 
 	list.getTail()->data = 53;
-	// makes the list as 0 -> 516 -> 330 -> 0 -> 70 -> 53
-
 	list.getHead()->next->data = 37;
-	// makes the list as 0 -> 37 -> 330 -> 0 -> 70 -> 53
+
+The list after these operations would be:
+	
+	0 -> 37 -> 330 -> 0 -> 53
+	^head                   ^tail | size == 5
 
 ###Searching:
 
 Searching can be done in the list using the search() function. However, this requires the data elements to be comparable, i.e. the operator == must be defined. The search function returns the position of the first occurance of the data element. It returns -2 if it is not found.
 
 	list.search(79); // returns -2, because 79 is not found
-	list.search(70); // returns 4, the position of 70 in the list
+	list.search(53); // returns 4, the position of 53 in the list
 	list.search(0); // returns 0, the position of the first occurance of 0
