@@ -1,15 +1,15 @@
-#Data Structures#
+# Data Structures #
 
 The following data structures have been implemented:
 
-##**list.h**##
+## **list.h** ##
 A multi-purpose Linked list implementation.  
 
     - Useful for creating Linked lists  
     - Forms a basis for stacks, queues. A wrapper is all that is required.  
     - Optimized code
 
-###Crash Course:
+### Crash Course:
 
 The list indexing starts from 0. Initially, the list will have 0 elements and the head and the tail will point to null. 
 
@@ -17,7 +17,7 @@ Throughout the documentation, 'element' means a data element - the real data whi
 
 Let's dive into the code rightaway. 
 
-###Initialising the list:
+### Initialising the list:
 
 First, let's initialize an empty list called _list_ :
 
@@ -25,7 +25,7 @@ First, let's initialize an empty list called _list_ :
 
 All this did was created an empty linked list, whose head and tail pointers point to NULL. We will see the uses of the head and tail later.
 
-###Adding elements to the list:
+### Adding elements to the list:
 
 Now, let's add two numbers to the end of the list:
 
@@ -46,7 +46,7 @@ After this operation, the list will be:
 	15 -> 516 -> 13
 	^head        ^tail | size == 3
 
-###Inspecting the list size:
+### Inspecting the list size:
 
 Now the list size can be inspected using list.getSize(). The following code will print the size of the list:
 
@@ -61,7 +61,7 @@ Thus, the output will be:
 	3
 	0 1 2
 
-###Building the list:
+### Building the list:
 
 The build() function builds empty slots at the end of the list. This function would require your data type to have a default constructor:
 
@@ -73,7 +73,7 @@ Till now, the linked list is:
 	15 -> 516 -> 13 -> 0 -> 0 -> 0
 	^head                        ^tail | size == 6
 
-###Removing elements:
+### Removing elements:
 
 We can remove elements using remove(position):
 
@@ -84,7 +84,7 @@ The list would become:
 	15 -> 516 -> 0 -> 0 -> 0
 	^head                  ^tail | size == 5
 
-###Swapping elements:
+### Swapping elements:
 
 Elements can be swapped using the swap(pos1,pos2) function:
 
@@ -95,14 +95,14 @@ The list would become:
 	0 -> 516 -> 15 -> 0 -> 0
 	^head                  ^tail | size == 5
 
-###Retrieving elements:
+### Retrieving elements:
 
 At any point, to get an element from the list, you can use the getData() function or the [] operator:
 
 	list.getData(2); // returns 15
 	list[1]; // returns 516
 
-###Getting pointers to nodes:
+### Getting pointers to nodes:
 
 The actual nodes of the list wrap two items, the 'data' element and the 'next' pointer. This library supports getting the pointer to the node, so that changes can be made directly to these items.
 
@@ -129,7 +129,7 @@ The list after these operations would be:
 	0 -> 37 -> 330 -> 0 -> 53
 	^head                   ^tail | size == 5
 
-###Searching:
+### Searching:
 
 Searching can be done in the list using the search() function. However, this requires the data elements to be comparable, i.e. the operator == must be defined. The search function returns the position of the first occurance of the data element. It returns -2 if it is not found.
 
